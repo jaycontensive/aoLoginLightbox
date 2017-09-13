@@ -14,7 +14,7 @@
 		<HelpLink></HelpLink>
 		<Icon Link="" width="0" height="0" sprites="0" />
 		<InIframe>No</InIframe>
-		<BlockEditTools>Yes</BlockEditTools>
+		<BlockEditTools>No</BlockEditTools>
 		<FormXML></FormXML>
 		<IncludeAddon name="jQuery ajaxForm" guid="{1DE8A882-5209-4571-8903-6A304CF7627A}"/>
 		<IncludeAddon name="Fancy Box" guid="{24C2DBCF-3D84-44B6-A5F7-C2DE7EFCCE3D}"/>
@@ -80,17 +80,31 @@ function llOpenLoginLightbox()
 }
 function llBuildLightbox( lightboxHtml )
 {
-	jQuery.fancybox({
-		'scrolling' : 'no',
-		/* 'padding' : 10, */
-		'content' : '<div id="loginLightboxCon" custom="asdf">'+lightboxHtml+'</div>',
-		'transitionIn' : 'fade',
-		'transitionOut' : 'fade',
-		'onComplete' : function(){
-			jQuery.fancybox.resize();
-			llBindForm();
-			}
-	});
+jQuery.fancybox.open({
+    src  : '<div id="loginLightboxCon" custom="asdf">'+lightboxHtml+'</div>',
+    type : 'html',
+    opts : {
+        'scrolling' : 'no',
+        'content' : '<div id="loginLightboxCon" custom="asdf">'+lightboxHtml+'</div>',
+        'transitionIn' : 'fade',
+        'transitionOut' : 'fade',
+        'afterShow' : function(){
+            //jQuery.fancybox.update();
+            llBindForm();
+            console.info( 'done!' );
+        }
+    }
+})
+//	jQuery.fancybox.open({
+//		'scrolling' : 'no',
+//		'content' : '<div id="loginLightboxCon" custom="asdf">'+lightboxHtml+'</div>',
+//		'transitionIn' : 'fade',
+//		'transitionOut' : 'fade',
+//		'onComplete' : function(){
+//			jQuery.fancybox.resize();
+//			llBindForm();
+//			}
+//	});
 }
 
 //
@@ -123,8 +137,7 @@ function llFormSubmit(e)
 		<ProcessInterval>0</ProcessInterval>
 		<PageTitle></PageTitle>
 		<RemoteAssetLink></RemoteAssetLink>
-		<Styles><![CDATA[
-/*
+		<Styles><![CDATA[/*
 * --------------------------------------------
 * login link
 * --------------------------------------------
@@ -137,7 +150,7 @@ cursor: pointer;
 #loginLightboxCon
 {
 /* width: 300px; */
-display:table;
+/* display:table; */
 }]]></Styles>
 		<Scripting Language="" EntryPoint="" Timeout="5000"/>
 	</Addon>
@@ -251,6 +264,6 @@ call cp.response.redirect("?")
 end function]]></Code>
 		</Scripting>
 	</Addon>
-	<ImportCollection name="jQuery ajaxForm">{1757AEF4-DEF0-4226-B1AD-B2F21FCD6742}</ImportCollection>
 	<ImportCollection name="Fancy Box">{B59F4D89-ADD9-4FEA-9D3F-B5A44DFD8F39}</ImportCollection>
+	<ImportCollection name="JQuery">{A435BF70-041B-43D1-8A8D-5D9D59A7FCD0}</ImportCollection>
 </Collection>
